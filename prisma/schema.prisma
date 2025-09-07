@@ -1,0 +1,82 @@
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model  Psychologist {
+  id          String    @id @default(uuid()) @db.Uuid
+  name        String    @db.VarChar(255)
+  birth       String    @db.VarChar(255)
+  email       String    @unique @db.VarChar(255)
+  cpf         String    @db.VarChar(20)
+  rg          String    @db.VarChar(20)
+  crp         String    @db.VarChar(20)
+  password    String    @db.VarChar(255)
+  phone       String    @db.VarChar(20)
+  specialty   String?   @db.VarChar(20)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  patients    Patient[]
+  sessions    Session[]   
+  @@map("psychologists") 
+}
+
+
+model Patient {
+  id             String      @id @default(uuid()) @db.Uuid
+  psychologistId String      @db.Uuid
+  name           String?     @db.VarChar(255)
+  email          String?     @db.VarChar(255)
+  phone          String?     @db.VarChar(20)
+  birthDate      DateTime?   
+  notes          String?     @db.Text
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  deletedAt      DateTime?
+
+  sessions    Session[]  
+  psychologist   Psychologist @relation(fields: [psychologistId], references: [id])
+
+  @@index([psychologistId])
+  @@map("patients") 
+}
+
+
+enum SessionStatus {
+  SCHEDULED
+  COMPLETED
+  CANCELED
+}
+
+model Session {
+  id                     String          @id @default(uuid()) @db.Uuid
+  psychologistId         String          @db.Uuid
+  patientId              String          @db.Uuid
+  sessionDate            DateTime
+  summary                String?         @db.Text
+  behavioralObservations String?         @db.Text
+  interventions          String?         @db.Text
+  patientReactions       String?         @db.Text
+  referrals              String?         @db.Text
+  therapeuticPlans       String?         @db.Text
+  diagnosticHypotheses   String?         @db.Text
+  techniqueUsed          String?         @db.VarChar(255)
+  status                 SessionStatus   @default(SCHEDULED)
+  createdAt              DateTime        @default(now())
+  updatedAt              DateTime        @updatedAt
+
+  psychologist           Psychologist    @relation(fields: [psychologistId], references: [id])
+  patient                Patient         @relation(fields: [patientId], references: [id])
+
+  @@index([psychologistId])
+  @@index([patientId])
+  @@map("sessions")
+}
