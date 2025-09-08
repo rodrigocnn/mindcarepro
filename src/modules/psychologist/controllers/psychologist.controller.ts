@@ -11,6 +11,7 @@ export class PsychologistController {
       const psychologist = await this.psychologistService.create(data);
       return res.status(201).json(psychologist);
     } catch (error) {
+      console.error(error); // sempre bom logar no servidor
       return res.status(500).json({ message: "Erro ao criar Psicologo" });
     }
   }

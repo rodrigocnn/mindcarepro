@@ -1,4 +1,4 @@
-import { hash } from "bcrypt"; // ou "bcrypt"
+import { hash } from "bcrypt";
 
 import { CreatePsychologistDTO } from "../dtos/create-psychologist.dto";
 import { IPsychologistRepository } from "../repositories/psychologist.repository";
