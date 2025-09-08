@@ -1,6 +1,6 @@
-# 📌 Plataforma de Reservas
+# 🧠 Sistema de Gestão para Psicólogos
 
-Uma aplicação **Node.js + TypeScript** para gerenciar **clientes** e **reservas**, com autenticação de usuários e persistência em banco de dados via **Prisma + PostgreSQL**.
+Um sistema desenvolvido em **Node.js + TypeScript** para apoiar psicólogos na **gestão de atendimentos**, incluindo **cadastro de pacientes, agenda, sessões **, com autenticação de usuários e persistência em banco de dados via **Prisma + PostgreSQL**.
 
 ---
 
@@ -10,111 +10,90 @@ Uma aplicação **Node.js + TypeScript** para gerenciar **clientes** e **reserva
 - TypeScript
 - Prisma ORM
 - PostgreSQL
-- JWT para autenticação
-- Zod para validação
-- Jest para testes automatizados
+- JWT (autenticação)
+- Zod (validação de dados)
+- Jest (testes automatizados)
 
 ---
 
 ## 📂 Estrutura de Pastas
 
-src/  
-├── controllers/ # Lógica dos endpoints  
-├── services/ # Regras de negócio  
-├── repositories/ # Comunicação com o Prisma  
-├── dtos/ # Data Transfer Objects  
-├── validations/ # Schemas Zod  
-├── middlewares/ # Tratamento de erros, autenticação  
-└── routes/ # Rotas da aplicação
+- **src/database** → Configuração do Prisma
+- **src/modules** → Domínios do sistema
+  - appointments
+  - auth
+  - patient
+  - psychologist
+  - session
+- **src/shared** → Recursos compartilhados
+  - middlewares
+  - routes
+  - utils
 
 ---
 
 ## ⚙️ Instalação e Configuração
 
-1. Clone o repositório:
-
-git clone https://github.com/seu-repo/plataforma-reservas.git  
-cd plataforma-reservas
-
-2. Instale as dependências:
-
-yarn install
-
-3. Configure o banco de dados no arquivo **.env**:
-
-DATABASE_URL="postgresql://user:password@localhost:5432/reservas"  
-JWT_SECRET="sua_chave_secreta"
-
-4. Rode as migrations do Prisma:
-
-yarn prisma migrate dev --name init
+1. Clone o repositório
+2. Instale as dependências com `yarn install`
+3. Configure o arquivo `.env` com:
+   - `DATABASE_URL="postgresql://user:password@localhost:5432/sistema_psicologos"`
+   - `JWT_SECRET="sua_chave_secreta"`
+4. Rode as migrations do Prisma com `yarn prisma migrate dev --name init`
 
 ---
 
 ## ▶️ Executando o Projeto
 
-Rodar em ambiente de desenvolvimento:
-
-yarn dev
-
-Rodar em produção:
-
-yarn build  
-yarn start
+- **Ambiente de desenvolvimento**: `yarn dev`
+- **Produção**: `yarn build` seguido de `yarn start`
 
 ---
 
-## 📡 Exemplos de Uso (Endpoints)
+## 📡 Exemplos de Endpoints
 
-### Criar Cliente
+### Cadastro de Paciente
 
-POST /clients  
-Content-Type: application/json
+**POST /patients**  
+Body:
 
-{  
- "name": "Rodrigo César",  
- "email": "rodrigo@exemplo.com",  
- "birth": "1985-05-01",  
- "phone": "(11) 99999-9999"  
-}
+- name
+- email
+- birth
+- phone
 
-### Criar Reserva
+### Criar Sessão
 
-POST /reservations  
-Authorization: Bearer <token>  
-Content-Type: application/json
+**POST /sessions**  
+Headers: Authorization Bearer Token  
+Body:
 
-{  
- "dateTime": "2025-09-01T19:00:00.000Z",  
- "clientId": "uuid-cliente"  
-}
+- sessionDate
+- patientId
+- psychologistId
+- summary
 
-### Listar Reservas
+### Listar Agenda
 
-GET /reservations  
-Authorization: Bearer <token>
+**GET /appointments**  
+Headers: Authorization Bearer Token
 
 ---
 
 ## 🧪 Testes
 
-Rodar os testes automatizados com Jest:
-
-yarn test
-
-Rodar com coverage:
-
-yarn test --coverage
+- Rodar todos os testes: `yarn test`
+- Rodar com coverage: `yarn test --coverage`
 
 ---
 
 ## 🤝 Contribuição
 
 1. Faça um fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`)
-3. Commit suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. Faça push para a branch (`git push origin feature/nova-feature`)
-5. Abra um Pull Request
+2. Crie uma branch para sua feature (`feature/minha-feature`)
+3. Commit suas alterações
+4. Faça push para sua branch
+5. Abra um Pull Request 🚀
 
 ---
 
