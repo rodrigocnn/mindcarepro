@@ -6,7 +6,6 @@ export class PatientService {
   constructor(private patientRepository: IPatientRepository) {}
 
   async create(data: CreatePatientDTO): Promise<ResponsePatientDTO> {
-    // Aqui você pode adicionar validações de negócio, por exemplo: email único
     return this.patientRepository.create(data);
   }
 
