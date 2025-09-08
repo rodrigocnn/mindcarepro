@@ -4,9 +4,17 @@ import { PatientService } from "../services/patient.service";
 export class PatientController {
   constructor(private patientService: PatientService) {}
 
+  // Método helper para processar o body
+  private patientParams(req: Request) {
+    return {
+      ...req.body,
+      psychologistId: req.user!.id, // injeta automaticamente
+    };
+  }
+
   async create(req: Request, res: Response) {
     try {
-      const data = req.body;
+      const data = this.patientParams(req);
       const client = await this.patientService.create(data);
       return res.status(201).json(client);
     } catch (error) {
@@ -28,7 +36,7 @@ export class PatientController {
   async update(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const data = req.body;
+      const data = this.patientParams(req);
       const client = await this.patientService.update(id, data);
       return res.status(201).json(client);
     } catch (error) {
