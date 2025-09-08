@@ -19,7 +19,7 @@ model  Psychologist {
   crp         String    @db.VarChar(20)
   password    String    @db.VarChar(255)
   phone       String    @db.VarChar(20)
-  specialty   String?   @db.VarChar(20)
+  specialty   String?   @db.VarChar(100)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   deletedAt   DateTime?
