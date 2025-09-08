@@ -78,14 +78,10 @@ Body:
 **GET /appointments**  
 Headers: Authorization Bearer Token
 
----
-
 ## 🧪 Testes
 
 - Rodar todos os testes: `yarn test`
 - Rodar com coverage: `yarn test --coverage`
-
----
 
 ## 🤝 Contribuição
 
@@ -94,8 +90,6 @@ Headers: Authorization Bearer Token
 3. Commit suas alterações
 4. Faça push para sua branch
 5. Abra um Pull Request 🚀
-
----
 
 ## 📄 Licença
 

@@ -1,10 +1,14 @@
-node_modules
-# Keep environment variables out of version control
+# Node modules
+node_modules/
+
+# Environment variables
 .env
 
+# Test coverage
 coverage/
-/src/generated/prisma
-/a-projeto
 
+# Prisma client (gerado)
+prisma/generated
 
+# Optional local notes
 NOTES.md
