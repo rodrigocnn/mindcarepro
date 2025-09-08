@@ -1,9 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
-// interface para tipar o payload do token
 interface JwtPayload {
-  id: string;
+  sub: string;
   email: string;
 }
 
@@ -19,7 +18,6 @@ export function authMiddleware(
       return res.status(401).json({ message: "Token não fornecido" });
     }
 
-    // normalmente vem no formato: "Bearer token_aqui"
     const [, token] = authHeader.split(" ");
 
     if (!token) {
@@ -30,9 +28,8 @@ export function authMiddleware(
 
     const decoded = jwt.verify(token, secret) as JwtPayload;
 
-    // adiciona o usuário no request para usar em outras rotas
     req.user = {
-      id: decoded.id,
+      id: decoded.sub,
       email: decoded.email,
     };
 
