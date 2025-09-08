@@ -4,11 +4,12 @@ import { PatientPrismaRepository } from "../repositories/patient.prisma.reposito
 import { PatientController } from "../controllers/patients.controller";
 import { prisma } from "../../../database/prisma.client";
 import { authMiddleware } from "../../../shared/middlewares/authMiddleware";
+import { PatientService } from "../services/patient.service";
 
 export const patientRoutes = Router();
 
 const patientRepository = new PatientPrismaRepository(prisma);
-const pacienteservice = new PatientController(patientRepository);
+const pacienteservice = new PatientService(patientRepository);
 const clientController = new PatientController(pacienteservice);
 
 patientRoutes.post("/pacientes", authMiddleware, (req, res) =>
